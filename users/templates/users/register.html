@@ -1,0 +1,30 @@
+{% extends "social/normalbase.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="content-section  border border-dark rounded-lg">
+        <h2  data-splitting class="headline headline--fade h2">Player Creation</h2>
+        <div class="pt-3">
+    <form method="POST" >
+        
+        {% csrf_token %}
+            <fieldset class="form-group">     
+                        {{ form|crispy }}        
+            </fieldset>
+            <div class="form-group " >
+                <button class="btn btn-success e" type="submit">Sign up</button>
+            </div>
+    </form>
+</div>
+    <div class="pt-3 border-top ">
+        <small class="text-muted ">
+            Already have an account <a class="ml-2" href="{% url 'login' %}">Sign in</a>
+        </small>
+    </div>
+    
+</div>
+
+
+{% endblock content %}
+

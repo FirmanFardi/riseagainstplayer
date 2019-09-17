@@ -1,0 +1,24 @@
+{% extends "social/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="content-section  border border-dark rounded-lg">
+        <h2  data-splitting class=" h2">Social Post</h2>
+        <div class="pt-3 border-top">
+    <form method="POST" >
+        
+        {% csrf_token %}
+            <fieldset class="form-group">     
+                        {{ form|crispy }}        
+            </fieldset>
+            <div class="form-group " >
+                <button class="btn btn-success e" type="submit">Post</button>
+            </div>
+    </form>
+</div>
+</div>
+
+
+{% endblock content %}
+

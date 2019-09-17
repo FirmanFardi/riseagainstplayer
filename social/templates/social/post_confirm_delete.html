@@ -1,0 +1,24 @@
+{% extends "social/base.html" %}
+
+
+
+{% block content %}
+<div class="content-section  border border-dark rounded-lg">
+        <h2  data-splitting class=" h2">Delete Post</h2>
+        <div class="pt-3 border-top">
+    <form method="POST" >
+        
+        {% csrf_token %}
+            <fieldset class="form-group">
+            <h2>Are you sure you want to delete the post "{{ object.title }}"</h2>   
+            </fieldset>
+            <div class="form-group " >
+                <button class="btn btn-danger" type="submit">Yes, Delete</button>
+                <a class="btn btn-secondary" href="{% url 'post-detail' object.id %}" >Cancel</a>
+            </div>
+    </form>
+</div>
+</div>
+
+{% endblock content %}
+

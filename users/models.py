@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 # Create your models here.
-# cascade if user delete profile also delete , but not otherwise
+# cascade if user delete profile also delete posts , but not otherwise
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

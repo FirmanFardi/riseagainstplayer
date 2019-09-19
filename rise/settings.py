@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'sass_processor',
     'crispy_forms',
     'users.apps.UsersConfig',
+    'scrape.apps.ScrapeConfig',
     'social.apps.SocialConfig',
     'django.contrib.admin',
     'django.contrib.auth',

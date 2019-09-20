@@ -5,6 +5,7 @@ from django.conf import settings
 class Scraper(models.Model):
     title1=models.CharField(max_length=120)
     image1=models.ImageField(default="", editable=False)
+    url1=models.TextField(default="", editable=False)
 
 
     def __str__(self):

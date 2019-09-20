@@ -7,9 +7,9 @@ import os
 import os.path
 import ntpath
 import shutil
-from .models import Scraper
+#from .models import Scraper
 
-def scrape1(request):
+def scrape1():
 
 
     session = requests.Session()
@@ -25,8 +25,9 @@ def scrape1(request):
     for i in posts:
 
         title= i.find_all('h3',{'class':'caption'})[0].text
+        link=i.find_all('a',{'class':'thumb'})[0]['href']
         image_source = i.find('img',{'class':'thumb'})['src']
-        
+        """
         media_root = '/FYP/django/rise/media'
         if not image_source.startswith(("data:image", "javascript")):
             local_filename = image_source.split('/')[-1].split("?")[0]
@@ -41,11 +42,17 @@ def scrape1(request):
 
         new_scrape = Scraper()
         new_scrape.title1= title
+        new_scrape.url1=url
         new_scrape.image1=local_filename
         new_scrape.save()
 
-    return render(request, '/admin')
+        
+    return render(request, 'scrape/news.html')
+        """
+        print(title)
+        print(link)
+        print(image_source)
 
-
+scrape1()
 
 # Create your views here.

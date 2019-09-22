@@ -42,8 +42,8 @@ def scrape1(request):
         
 
         new_scrape = Scraper()
-        new_scrape.title1= title
-        new_scrape.url1=url
+        new_scrape.gametitle= title
+        new_scrape.link=link
         new_scrape.image1=local_filename
         new_scrape.save()
 

@@ -1,9 +1,13 @@
 .register-background{
-  background: url("/static/register4.jpg") 50% 0 no-repeat fixed;
   background-repeat: no-repeat;
   background-position: center center;
+  background:linear-gradient(rgba(0,130,170,0),rgba(0,130,170,1)), url("/static/register4.jpg") 70% 0 no-repeat fixed;
   background-size: cover;
   background-color: #464646;
+  height: 1000px; 
+  background-size: cover; 
+  box-shadow: -5px -5px -5px -5px rgba(161, 38, 38, 0.8); 
+  
 }
 
 .profile-background
@@ -148,4 +152,56 @@ a.article-title:hover {
   .cyber video {
     display: none;
   }
+}
+
+
+
+.navbar-default{
+	background-color: #e74c3c !important; 
+}
+.navbar-default .navbar-header > a {
+	color: #ecf0f1 ; 
+}
+.navbar-default .navbar-nav > li > a{
+	color:#ecf0f1 ;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+	border-bottom: 2px solid #ecf0f1;
+	background-color: transparent;
+}
+
+
+.tembus{
+	background-color: transparent !important;
+}
+.hvrcenter {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+  overflow: hidden;
+}
+.hvrcenter:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  background: #ECF0F1;
+  height: 2px;
+  -webkit-transition-property: left, right;
+  transition-property: left, right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvrcenter:hover:before, .hvrcenter:focus:before, .hvrcenter:active:before {
+  left: 0;
+  right: 0;
 }

@@ -5,17 +5,47 @@
 {% for steam in steams %}
 
 
-<img  src="{{ steam.image.url}}">
-<h3><a class="article-title h3 text-white">{{ steam.gametitle }}</a></h3>
+
+    <!-- Card -->
+    <div class="card" style="width: 20rem;">
+
+        <!--Card image-->
+        <div class="view overlay">
+            <img class="card-img-top" src="{{ steam.image.url}}"
+                alt="Card image cap">
+            <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+
+        <!--Card content-->
+        <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title">{{ steam.gametitle }}</h4>
+            <!--Text-->
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" href="{{ steam.url }} class=" class="btn btn-light-blue btn-md">Read more</button>
+
+        </div>
+
+    </div>
+    <!-- Card -->
+
+
+<h3><a class="article-title h3 text-white"></a></h3>
 <h4><a class="article-title h6 text-white">RM {{ steam.price }}</a></h4>
 <h4><a class="article-title h6 text-white">{{ steam.tag }}</a></h4>
+<h4><a class="article-title h6 text-white">{{ steam.rating }}</a></h4>
+<a class="article-title h6 text-white " href="{{ steam.url }}">{{ steam.url }}</a>
 <br>
 
 {% endfor %}
 
+
 {% endblock content %}
-
-
 
 
 

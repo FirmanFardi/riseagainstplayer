@@ -75,7 +75,7 @@ gog()
 
 def steam(request):
 
-        pages = [2,3,4,5,6]
+        pages = [2]
         
         for page in pages:
             session = requests.Session()
@@ -104,7 +104,6 @@ def steam(request):
                 try:
                     metascore = soup.find('meta', {'itemprop': 'ratingValue'})['content']
                     print(metascore)
-
                     title = soup.find('div',{'class':'apphub_AppName'}).text
                     print(title)
                     price = soup.find('div',{'class':'game_purchase_price'}).text
@@ -238,7 +237,7 @@ def steam(request):
 
 
 
-def gog():
+def gog(): 
 
     session = HTMLSession()
     #session = requests.Session()

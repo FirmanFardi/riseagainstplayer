@@ -1,4 +1,4 @@
-#from .models import Steam
+from .models import Steam
 import shutil
 import ntpath
 import os.path
@@ -68,14 +68,14 @@ def gog():
         pass
 
 gog()
+
 """
 
 
 
+def steam(request):
 
-def steam():
-
-        pages = [2]
+        pages = [2,3,4,5,6]
         
         for page in pages:
             session = requests.Session()
@@ -117,7 +117,13 @@ def steam():
                         finalprice = (Decimal(newprice.strip('RM')))
 
                     print(finalprice)
+                    tags = soup.find_all('a',{'class':'app_tag'})
+                    arraytags=[]
+                    for i in tags:
+                        arraytags.append(i.string.strip())
+                    print(arraytags)
 
+                    
                     image = soup.find('img', {'class': 'game_header_image_full'})['src']       
                     media_root = '/FYP/django/rise/media'
                     if not image.startswith(("data:image", "javascript")):
@@ -132,13 +138,37 @@ def steam():
                         shutil.move(current_image_absolute_path, media_root)
 
                     print(local_filename)
+
+
+
+
                     
                 except:
                     pass
 
-steam()
+                for row in Steam.objects.all():
+                    if  Steam.objects.filter(gametitle=row.gametitle).count() > 1:
+                        row.delete()
+
+                new_steam = Steam()
+                new_steam.gametitle=title
+                new_steam.price=finalprice
+                new_steam.url=link
+                new_steam.rating=metascore  
+                new_steam.image=local_filename
+                new_steam.tag=arraytags
+                new_steam.save()
+
+        context = {
+            'steams': Steam.objects.all()
+        }
+
+        return render(request, 'steam/gamescrape.html', context)
+
+
 
 """
+
         topseller = soup.find('div', {'id': 'tab_content_ConcurrentUsers'})
         steam = topseller.find_all('a', {'class': 'tab_item'})
 
@@ -204,10 +234,10 @@ steam()
     }
 
     return render(request, 'steam/gamescrape.html', context)
-"""
 
 
-"""
+
+
 def gog():
 
     session = HTMLSession()
@@ -231,11 +261,8 @@ def gog():
     gog = r.html.find('.base-main-wrapper')
     print(gog)
 
-
-
 gog()
 """
-
 
 def Gamelist(request):
 
@@ -244,3 +271,25 @@ def Gamelist(request):
     }
 
     return render(request, 'steam/gamelist.html', context)
+"""
+def rotten():
+
+            session = requests.Session()
+            session.headers = {
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
+            url = 'https://www.rottentomatoes.com/top/bestofrt/'
+
+            content = session.get(url, verify=False).content
+            soup = BeautifulSoup(content, "html.parser")
+
+            body = soup.find('table',{'class':'table'})
+            rotten = body.find_all('tr')
+            for i in rotten:
+                text = i.find('a',{'class':'articleLink'})
+                soup3 = BeautifulSoup(str(text), 'lxml')
+                print(soup3.text.strip())
+
+
+
+rotten()
+"""

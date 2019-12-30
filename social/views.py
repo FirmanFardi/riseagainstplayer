@@ -1,7 +1,13 @@
 from django.shortcuts import render
+from steam.models import Steam
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView,DetailView,CreateView,UpdateView, DeleteView
 from .models import Post
+from django.db import connection
+from django.http import HttpResponse
+from django.http import JsonResponse
+from django.urls import reverse_lazy
+from .models import Form
 
 
 def home(request):
@@ -12,7 +18,7 @@ def home(request):
 
 class PostListView(ListView):
     model = Post
-    template_name = 'social/home.html' #<app>/<model>_<viewtype>.html
+    template_name = 'social/home.html' #ni dia cari <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
@@ -56,5 +62,36 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def about(request):
     return render(request, 'social/about.html', {'title':'About'})
 
+def recommender(request):
+
+    context = {
+        'steams': Steam.objects.all()
+        }
+    return render(request, 'social/recommender.html',context)
+
+def select_invoice(request):
+    gametitle =  request.POST.get('checks')
+    cursor = connection.cursor()
+    cursor.execute('''SELECT * from db.sqlite3 where gametitle IN('%s')''' %(gametitle))
+    row = cursor.fetchall()
+    data =  {
+            'row': row
+        }
+    return JsonResponse(data)
+    
+class PersonListView(ListView):
+    model = Form
+    context_object_name = 'people'
+
+class PersonCreateView(CreateView):
+    model = Form
+    fields = ('genre',)
+    success_url = reverse_lazy('person_changelist')
+    
+
+class PersonUpdateView(UpdateView):
+    model = Form
+    fields =('genre',)
+    success_url = reverse_lazy('person_changelist')
 
 # Create your views here.

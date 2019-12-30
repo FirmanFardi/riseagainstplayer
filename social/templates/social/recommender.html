@@ -1,0 +1,105 @@
+{% extends "social/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<body class="my-5 text-white">
+  <h1 class=" h-25 h1-responsive my-5 text-white">INTERACTIVE RECOMMENDER</h1>
+
+  <!--<h4 class="h4-responsive my-3 text-white h-25">Explore personalized recommendations from our machine learning system,
+    based on your user preferance. Customize your results using the sliders
+    and filters.</h4>-->
+
+
+
+
+
+  <div class="h-75 row">
+    <div class="col-6 col-md-4">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+
+        <div class="media-body">
+          <h2 class="account-heading h1 text-white"> {{ user.username }}</h2>
+          
+        </div>
+      </div>
+
+    </div>
+    <div class="col-6 col-md-4 " >
+
+      <label for="customRange1">Weight by rating</label>
+      <input type="range" class="custom-range " id="customRange1">
+
+
+      <label for="customRange1">Add tag filters</label>
+      <br>
+      <div class="btn-group dropright">
+        <button type="button" class="btn btn-primary">Tag Filters</button>
+        <button type="button" class="btn btn-primary dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Separated link</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-6 col-md-4">
+
+      <label for="customRange1">Weight by price</label>
+      <input type="range" class="custom-range" id="customRange1">
+    </div>
+  </div>
+</body>
+pi
+<form action="/your-name/" method="post">
+  <label for="your_name">Genre you want: </label>
+  <input id="genre" type="text" name="your_name" value="{{ current_name }}">
+  <input type="submit" value="OK">
+  <fieldset class="form-group">       
+</fieldset>
+</form>
+
+<h2>Person Form</h2>
+<form method="post" novalidate>
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <button type="submit">Save</button>
+  <a href="{% url 'person_changelist' %}">Nevermind</a>
+</form>
+<!--
+<form  method="POST"  id="invoice_form">{% csrf_token %}
+  <div id= "content">
+    {% for steam in steams %}
+<input type="checkbox" name="checks" id="steam" value="{{ steam.gametitle }}" class="form-control">
+      {{ steam.gametitle}}
+      {{ steam.rating }}
+    {% endfor %}
+  </div>
+<div id="ajax_result"></div>
+</form>
+
+<script>
+  jQuery("#invoice_form").on('submit',function (e) {
+         e.preventDefault();
+         jQuery.ajax({
+          type:'POST',
+          url:"{% url 'select_invoice' %}",
+          dataType:'json',
+          data: jQuery("#invoice_form").serialize(),
+          success: function (data) {
+    jQuery("#content").hide();
+    jQuery("ajax_result").append(data['row']);
+    }
+  }); });
+  </script>
+-->
+{% endblock content %}

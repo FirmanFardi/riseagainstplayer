@@ -20,63 +20,6 @@ import requests
 requests.packages.urllib3.disable_warnings()
 
 
-"""
-def gog():
-
-    session = requests.Session()
-    session.headers = {
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
-    url = 'https://www.epicgames.com/store/en-US/'
-
-    content = session.get(url, verify=False).content
-
-    soup = BeautifulSoup(content, "html.parser")
-
-    epic = soup.find_all(
-        'div', {'class':['StoreRow-wrapper_32933b82','StoreRow-complete_f20e8e33']})
-
-
-    try:
-        for i in epic:
-            link = i.find(
-                'a',{'class':['StoreCard-card_c451165d','StoreCard-tall_78db8e38']})['href']
-            # for steam in soup.find_all('a',{'class':'tab_item'}): # return as a list
-            print(link)
-
-
-            session = requests.Session()
-            session.headers = {
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
-            url = 'https://www.epicgames.com'+link
-
-            content = session.get(url, verify=False).content
-
-            soup = BeautifulSoup(content, "html.parser")
-
-            title = soup.find(
-                'h1',{'class':'NavigationVertical-subNavLabel_1428bd43'}).text
-            print(title)
-            tags = soup.find(
-                'div',{'class':['GameMeta-data_190d6d22','GameMeta-listData_76d672d8']})
-            print(tags)
-            price=soup.find('span',{'class':''})
-            print(price)
-            gametags = []
-            for u in tags:
-                gametags.append(u)
-                print(gametags)
-
-
-
-    except:
-        pass
-
-gog()
-
-
-
-
-"""
 def steam(request):
 
 
@@ -113,13 +56,6 @@ def steam(request):
 
             tags_list = list()        
 
-            
-            title = 'test'
-            genre = 'test'
-            developer = 'test'
-            finalprice = 0
-            metascore = 0 
-            local_filename='test'
             
             try:
                 metascore = soup.find('meta', {'itemprop': 'ratingValue'})['content']
@@ -167,49 +103,48 @@ def steam(request):
 
                 print(local_filename)
 
+
+                new_genre = Genre()
+                new_genre.name = genre
+                new_genre.save()
+
+
+
+                new_developer = Developer()
+                new_developer.name = developer
+                new_developer.save()
+
+
+
+                new_steam = Steam()
+                new_steam.gametitle=title
+                new_steam.genre=new_genre
+                new_steam.developer=new_developer
+                new_steam.price=finalprice
+                new_steam.url=link
+                new_steam.rating=metascore  
+                new_steam.image=local_filename
+                new_steam.save() 
+
+                for tag in tags_list:
+                    new_steam.tags.add(tag)
+
+
+                for row in Tag.objects.all():
+                    if  Tag.objects.filter(name=row.name).count() > 1:
+                        row.delete()
+
+                for row in Steam.objects.all():
+                    if  Steam.objects.filter(gametitle=row.gametitle).count() > 1:
+                        row.delete()
+
             
             except:
                 pass
 
 
 
-            new_genre = Genre()
-            new_genre.name = genre
-            new_genre.save()
 
-            for row in Genre.objects.all():
-                if  Genre.objects.filter(name=row.name).count() > 1:
-                    row.delete()
-
-            new_developer = Developer()
-            new_developer.name = developer
-            new_developer.save()
-
-            for row in Developer.objects.all():
-                if  Developer.objects.filter(name=row.name).count() > 1:
-                    row.delete()
-
-            new_steam = Steam()
-            new_steam.gametitle=title
-            new_steam.genre=new_genre
-            new_steam.developer=new_developer
-            new_steam.price=finalprice
-            new_steam.url=link
-            new_steam.rating=metascore  
-            new_steam.image=local_filename
-            new_steam.save() 
-
-            for tag in tags_list:
-                new_steam.tags.add(tag)
-
-
-            for row in Tag.objects.all():
-                if  Tag.objects.filter(name=row.name).count() > 1:
-                    row.delete()
-
-            for row in Steam.objects.all():
-                if  Steam.objects.filter(gametitle=row.gametitle).count() > 1:
-                    row.delete()
 
 
     context = {
@@ -383,33 +318,6 @@ def uplay(request):
 
     return render(request, 'steam/gamescrape.html', context)
 
-
-
-
-def gog(): 
-
-    session = HTMLSession()
-    #session = requests.Session()
-    r = session.get('https://www.humblebundle.com/store/search?sort=bestselling&genre=Action')
-    
-    session.headers = {
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
-    url = 'https://www.gog.com/games?sort=popularity&page=1&category=action'
-
-    content = session.get(url, verify=False).content
-     
-    soup = BeautifulSoup(content, "html.parser")
-    
-    topseller = soup.find_all('div', {'class': 'product-tile'})
-    for i in topseller:
-        title = i.find('a', {'class': ['product-tile__content','js-content']})['ng-href']
-        print(title)
-    
-    r.html.render()
-    gog = r.html.find('.base-main-wrapper')
-    print(gog)
-
-gog()
 """
 
 def Gamelist(request):
@@ -419,25 +327,9 @@ def Gamelist(request):
     }
 
     return render(request, 'steam/gamelist.html', context)
-"""
-def rotten():
-
-            session = requests.Session()
-            session.headers = {
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
-            url = 'https://www.rottentomatoes.com/top/bestofrt/'
-
-            content = session.get(url, verify=False).content
-            soup = BeautifulSoup(content, "html.parser")
-
-            body = soup.find('table',{'class':'table'})
-            rotten = body.find_all('tr')
-            for i in rotten:
-                text = i.find('a',{'class':'articleLink'})
-                soup3 = BeautifulSoup(str(text), 'lxml')
-                print(soup3.text.strip())
 
 
 
-rotten()
-"""
+
+
+

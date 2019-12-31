@@ -1,6 +1,6 @@
 {% load static %}
 {% load sass_tags %}
-
+{% load bootstrap4 i18n staticfiles %}
 
 <html>
 
@@ -71,7 +71,7 @@
                     <div class="navbar-nav mr-auto">
                         <a class="nav-item nav-link hvrcenter" href="{% url 'social-home' %}">Social</a>
                         <!--<a class="nav-item nav-link hvrcenter" href="{% url 'social-about' %}">News</a>-->
-                        <a class="nav-item nav-link hvrcenter" href="{% url 'person_add' %}">Recommender</a>
+                        <a class="nav-item nav-link hvrcenter" href="{% url 'recommendation' %}">Recommender</a>
 
                     </div>
                     <!-- Navbar Right Side -->

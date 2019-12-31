@@ -33,6 +33,7 @@
       <h2>Person Form</h2>
       <form method="post" novalidate>
         {% csrf_token %}
+        {{ form|crispy }}
         <table>
       <!-- Basic dropdown -->
       <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown"

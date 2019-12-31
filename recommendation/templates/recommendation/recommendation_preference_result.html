@@ -1,0 +1,142 @@
+{% extends 'social/base.html' %}
+{% load bootstrap4 i18n staticfiles %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <td colspan="3">
+                <h1 class=text-white></h1>{% trans 'According to your answers' %}</h1>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <h4 class="h1-responsive text-white"></h4>{% trans 'Favorite game' %}</h4>
+            </th>
+            <th>
+                <h4 class=text-white></h4>{% trans 'Favorite developer' %}</h4>
+            </th>
+            <th>
+                <h4 class=text-white></h4>{% trans 'Favorite tags' %}</h4>
+            </th>
+        </tr>
+        <tr>
+
+            <td>
+                <h4 class=text-white></h4>
+                {{ user_favorites.favorite_genre }}</h4>
+            </td>
+            <td>
+                <h4 class=text-white></h4>
+                {{ user_favorites.favorite_developer }}</h4>
+            </td>
+            <td style="text-align:center">
+                {% for tag in user_favorites.favorite_tags_top_6 %}
+                {{ tag.name }}<br>
+                {% endfor %}
+            </td>
+        </tr>
+    </thead>
+</table>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <td colspan="3">
+                <h1 class=text-white>{% trans 'Games you may like' %}</h1>
+            </td>
+        </tr>
+    </thead>
+</table>
+{% for single_game_information in sorted_all_game_information %}
+<table>
+    <thead>
+        <tr>
+            <h1 class=text-white>{{ single_game_information.game.gametitle }}</h1>
+        </tr>
+    </thead>
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">
+                <div>
+                    <h3 class=text-white>{% trans 'Score' %}: {{ single_game_information.match_score }}
+                        {% if single_game_information.match_score >= 60 %}
+                        <i class="far fa-thumbs-up"></i>
+                        {% elif single_game_information.match_score > 50 %}
+                        <i class="far fa-thumbs-down"></i>
+                        {% else %}
+                        <i class="far fa-thumbs-down"></i>
+                        {% endif %}
+                    </h3>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <body>
+        <tr>
+            <td><h4 class=text-white>{% trans 'Genre' %}</h4></td>
+            <td style="text-align:center">
+                {% for genre in single_game_information.steam.genre.all %}
+                    <p>{{ genre.name }}</a></p>
+                {% endfor %}
+                {% if single_game_information.genre_match == True %}
+                    <a href="" class="btn btn-success">
+                        {% trans 'Match' %}
+                        <i class="fas fa-grin-hearts"></i>
+                    </a><br>
+                {% else %}
+                    <a href="" class="btn btn-secondary">
+                        {% trans 'No match' %}
+                        <i class="far fa-sad-tear"></i>
+                    </a><br>
+                {% endif %}
+            </td>
+            <td rowspan="5" style="text-align:center">
+                <img src="{{ single_game_information.game.image.url }}" style=width:600px;height:500px;>
+            </td>
+        </tr>
+        <tr>
+            <td><h4  class=text-white>{% trans 'Developer' %}</h4></td>
+            <td style="text-align:center">
+                <p>
+                    {{ single_game_information.game.developer }}
+                </p>
+                {% if single_game_information.developer_match == True %}
+                    <a href="" class="btn btn-success">
+                        {% trans 'Match' %}
+                        <i class="fas fa-grin-hearts"></i>
+                    </a><br>
+                {% else %}
+                    <a href="" class="btn btn-secondary">
+                        {% trans 'No match' %}
+                        <i class="far fa-sad-tear"></i>
+                    </a><br>
+                {% endif %}
+
+            </td>
+        </tr>
+        <tr>
+            <td><h4 class=text-white>{% trans 'Matching tags' %}</h4></td>
+            <td style="text-align:center" class=text-white>
+                {% for game_tag in single_game_information.matched_tags %}
+                    {{ game_tag.name }}<br>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td><h4 class=text-white>{% trans 'Other tags' %}</h4></td>
+            <td style="text-align:center" class=text-white>
+                {% for game_tag in single_game_information.unmatched_tags %}
+                        {{ game_tag.name }}<br>
+                {% endfor %}
+            </td>
+        </tr>
+    </body>
+
+
+</table>
+{% endfor %}
+{% endblock %}

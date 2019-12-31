@@ -5,16 +5,17 @@ from genre.models import Genre
 from developer.models import Developer
 from django.contrib.auth.models import User
 from tag.models import Tag
+from constants import SORTED_RATING, SORTED_YEARS
 # Create your models here.
 
 
 
 class Steam(models.Model):
-    gametitle=models.CharField(max_length=500)
+    gametitle=models.CharField(max_length=500,null=True,blank=True)
     genre=models.ForeignKey(Genre, on_delete=models.CASCADE,null=True)
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
-    price=models.DecimalField(max_digits=6, decimal_places=2)
-    image=models.ImageField()
+    price=models.DecimalField(max_digits=6, decimal_places=2,null=True,blank=True)
+    image=models.ImageField(null=True,blank=True)
     tags = models.ManyToManyField(Tag,null=True)
     url=models.TextField()
     rating=models.IntegerField(null=True, blank=True)
@@ -24,6 +25,13 @@ class Steam(models.Model):
 
 
     def __str__(self):
-        return self.gametitle
+        return str(self.gametitle)
     
 
+class GameScore(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    game = models.ForeignKey(Steam, on_delete=models.CASCADE)
+    score = models.IntegerField(choices=SORTED_RATING, blank=True)
+
+    def __str__(self):
+        return '{}-{}-{}'.format(self.user, self.game, self.score)

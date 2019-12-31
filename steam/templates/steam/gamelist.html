@@ -47,20 +47,22 @@
                 <!-- Name -->
                 <h6 class="card-title text-right white-text">RM {{ steam.price }}</h6>
                 <hr>
-                {{ steam.gametitle }}
+                <h4 class="card-title white-text">{{ steam.gametitle }}</h4>
                 <br>
                 {{ steam.tag }}
                 Genre: {{ steam.genre }}
+                <br>
                 Developer: {{ steam.developer }}
                 <br>
-                
+                <!--
                 Tags:
                 {% for tag in steam.tags.all %}
                      {{ tag }},
                 {% endfor %}
+                -->
                 <br>
                 
-                <h6 class="card-title text-right white-text">Rate: {{ steam.rating }}</h6>
+                <h6 class="card-title text-right white-text">{{ steam.rating }} <i class="fas fa-star"></i></h6>
                 <a href="#!" class="white-text d-flex justify-content-end ">
                     <h5>Read more <i class="fas fa-angle-double-right"></i></h5>
                 </a>

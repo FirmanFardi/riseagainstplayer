@@ -36,11 +36,13 @@ INSTALLED_APPS = [
     'crispy_forms',
     'users.apps.UsersConfig',
     'steam.apps.SteamConfig',
-    'scrape.apps.ScrapeConfig',
     'social.apps.SocialConfig',
     'genre.apps.GenreConfig',
     'tag.apps.TagConfig',
     'developer.apps.DeveloperConfig',
+    'recommendation.apps.RecommendationConfig',
+    'rest_framework',
+    'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -152,3 +154,4 @@ LOGIN_REDIRECT_URL = 'social-home'
 
 #for @login_required
 LOGIN_URL ='login'
+

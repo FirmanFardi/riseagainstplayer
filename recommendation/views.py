@@ -11,9 +11,9 @@ from django.views import View
 from steam.models import Steam
 from .forms import ChooseTagsForm
 
-DEVELOPER_MATCH_SCORE = 14
-GENRE_MATCH_SCORE = 14
-TAG_MATCH_SCORE = 12
+DEVELOPER_MATCH_SCORE = 15
+GENRE_MATCH_SCORE = 50
+TAG_MATCH_SCORE = 7
 
 
 class RecommendGamesManuallyView(View):

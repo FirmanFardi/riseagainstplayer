@@ -42,7 +42,9 @@ def steam(request):
         topseller = soup.find('div', {'id': 'search_resultsRows'})
         steam = topseller.find_all('a') 
         
+        
         for i in steam:
+    
             link=i['href']
             print(link)
             
@@ -92,30 +94,52 @@ def steam(request):
 
                 tags = soup.find_all('a',{'class':'app_tag'})
                 
-                for i in tags:
+                for i in tags[0:5]:
                     tag=i.string.strip()
                     print(tag)
 
                     new_tag=Tag()
                     new_tag.name = tag
-                    new_tag.save()
+                    #new_tag.save()
+                    
+
+
+                    if  Tag.objects.filter(name=tag).count() < 1:
+                        new_tag.save()
+                                                                                                                    
+                    new_tag = Tag.objects.get(name=tag)
+
                     tags_list.append(new_tag)
+
 
                 print(local_filename)
 
 
+
+
+
+
                 new_genre = Genre()
                 new_genre.name = genre
-                new_genre.save()
+                #new_genre.save()
 
-
-
+                if  Genre.objects.filter(name=genre).count() < 1:
+                    new_genre.save()
+                                                                                                                    
+                new_genre = Genre.objects.get(name=genre)
+                                                         
+                
                 new_developer = Developer()
                 new_developer.name = developer
-                new_developer.save()
+                #new_developer.save()
+
+                if  Developer.objects.filter(name=developer).count() < 1:
+                    new_developer.save()
+                                                                                                                    
+                new_developer = Developer.objects.get(name=developer)
 
 
-
+            
                 new_steam = Steam()
                 new_steam.gametitle=title
                 new_steam.genre=new_genre
@@ -130,9 +154,6 @@ def steam(request):
                     new_steam.tags.add(tag)
 
 
-                for row in Tag.objects.all():
-                    if  Tag.objects.filter(name=row.name).count() > 1:
-                        row.delete()
 
                 for row in Steam.objects.all():
                     if  Steam.objects.filter(gametitle=row.gametitle).count() > 1:

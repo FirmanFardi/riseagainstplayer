@@ -4,13 +4,14 @@ from django.utils.translation import ugettext_lazy as _
 from developer.models import Developer
 from genre.models import Genre
 from tag.models import Tag
+from django import forms
 
 all_tags = Tag.objects.all()
 all_developers = Developer.objects.all()
 all_genres = Genre.objects.all()
 
 
-class ChooseTagsForm(Form):
+class ChooseTagsForm(forms.Form):
     genre = ModelChoiceField(
         queryset=all_genres.order_by('name'),
         widget=Select
@@ -20,7 +21,12 @@ class ChooseTagsForm(Form):
         widget=Select
     )
     tags = ModelMultipleChoiceField(
-        label=_('Tags (Select 6)'),
+        label=_('Tags (Select no more than 5)'),
         queryset=all_tags.order_by('name'),
-        widget=CheckboxSelectMultiple(attrs={'class': 'checkboxmultiple'})
-    )
+        widget=CheckboxSelectMultiple(attrs={'class': 'checkboxmultiple'}))
+
+    def clean_tags(self):
+        if len(self.cleaned_data['tags']) > 6:
+            raise forms.ValidationError('Select no more than 3.')
+        return self.cleaned_data['tags']
+    

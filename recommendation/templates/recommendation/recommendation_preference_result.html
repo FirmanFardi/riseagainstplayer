@@ -7,7 +7,7 @@
     <thead>
         <tr>
             <td colspan="3">
-                <h1 class=text-white></h1>{% trans 'According to your answers' %}</h1>
+                <h1 class="text-center text-white"></h1>{% trans 'Your favourite answers' %}</h1>
             </td>
         </tr>
         <tr>
@@ -28,7 +28,7 @@
                 {{ user_favorites.favorite_genre }}</h4>
             </td>
             <td>
-                <h4 class=text-white></h4>
+                <h4 class="text-white " ></h4>
                 {{ user_favorites.favorite_developer }}</h4>
             </td>
             <td style="text-align:center">
@@ -44,7 +44,7 @@
     <thead>
         <tr>
             <td colspan="3">
-                <h1 class=text-white>{% trans 'Games you may like' %}</h1>
+                <h1 class="text-center text-white">{% trans 'Games you may like' %}</h1>
             </td>
         </tr>
     </thead>
@@ -79,9 +79,10 @@
         <tr>
             <td><h4 class=text-white>{% trans 'Genre' %}</h4></td>
             <td style="text-align:center">
-                {% for genre in single_game_information.steam.genre.all %}
-                    <p>{{ genre.name }}</a></p>
-                {% endfor %}
+                <p class="text-white">
+                    {{ single_game_information.game.genre }}
+                </p>
+                
                 {% if single_game_information.genre_match == True %}
                     <a href="" class="btn btn-success">
                         {% trans 'Match' %}
@@ -101,7 +102,7 @@
         <tr>
             <td><h4  class=text-white>{% trans 'Developer' %}</h4></td>
             <td style="text-align:center">
-                <p>
+                <p class="text-white">
                     {{ single_game_information.game.developer }}
                 </p>
                 {% if single_game_information.developer_match == True %}

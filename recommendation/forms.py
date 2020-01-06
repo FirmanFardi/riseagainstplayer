@@ -26,7 +26,7 @@ class ChooseTagsForm(forms.Form):
         widget=CheckboxSelectMultiple(attrs={'class': 'checkboxmultiple'}))
 
     def clean_tags(self):
-        if len(self.cleaned_data['tags']) > 6:
+        if len(self.cleaned_data['tags']) > 5:
             raise forms.ValidationError('Select no more than 3.')
         return self.cleaned_data['tags']
     

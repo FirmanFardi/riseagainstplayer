@@ -60,9 +60,7 @@ STATICFILES_FINDERS = [
 
 SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR,'scss')
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,7 +142,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static_in_env"),
+)
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 MEDIA_URL = '/media/'

@@ -36,8 +36,8 @@ def steam(request):
         session = requests.Session()
         session.headers = {
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
-        url = 'https://store.steampowered.com/search/?page='+format(page)+'&tags=19'
-
+        url = 'https://store.steampowered.com/search/?tags=19&filter=topsellers&page='+format(page)
+                
         content = session.get(url, verify=False).content
     
         soup = BeautifulSoup(content, "html.parser")
@@ -82,7 +82,7 @@ def steam(request):
                 print(finalprice)
 
                 image = soup.find('img', {'class': 'game_header_image_full'})['src']       
-                media_root = '/home/django/rise/media'
+                media_root = '/FYP/django/rise/media'
                 if not image.startswith(("data:image", "javascript")):
                     #local_filename = image.split('/')[-1].split("?")[0]
                     local_filename = title+'.jpg'

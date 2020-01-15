@@ -28,7 +28,7 @@ def steam(request):
     Developer.objects.all().delete()
     Tag.objects.all().delete()
     Genre.objects.all().delete()
-    pages = [2]
+    pages = [2,3,4,5,6]
     
     for page in pages:
         session = requests.Session()

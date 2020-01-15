@@ -30,13 +30,13 @@ def steam(request):
     Genre.objects.all().delete()
 
 
-    pages = [2]
+    pages = [2,3]
     
     for page in pages:
         session = requests.Session()
         session.headers = {
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
-        url = 'https://store.steampowered.com/search/?tags=19&filter=topsellers&page='+format(page)
+        url = 'https://store.steampowered.com/search/?page='+format(page)+'&tags=19'
                 
         content = session.get(url, verify=False).content
     

@@ -30,7 +30,7 @@ def steam(request):
     Genre.objects.all().delete()
 
 
-    pages = [2,3]
+    pages = [2,3,4,5]
     
     for page in pages:
         session = requests.Session()
@@ -82,7 +82,7 @@ def steam(request):
                 print(finalprice)
 
                 image = soup.find('img', {'class': 'game_header_image_full'})['src']       
-                media_root = '/home/django/rise/media'
+                media_root = '/FYP/django/rise/media'
                 if not image.startswith(("data:image", "javascript")):
                     #local_filename = image.split('/')[-1].split("?")[0]
                     local_filename = title+'.jpg'

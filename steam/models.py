@@ -15,7 +15,7 @@ class Steam(models.Model):
     genre=models.ForeignKey(Genre, on_delete=models.CASCADE,null=True)
     developer = models.ForeignKey(Developer, on_delete=models.CASCADE)
     price=models.DecimalField(max_digits=6, decimal_places=2,null=True,blank=True)
-    image=models.ImageField(null=True,blank=True)
+    image=models.ImageField(null=True,blank=True,default='default.jpg')
     tags = models.ManyToManyField(Tag,null=True)
     url=models.TextField()
     rating=models.IntegerField(null=True, blank=True)

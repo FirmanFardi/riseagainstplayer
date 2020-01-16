@@ -30,7 +30,7 @@ def steam(request):
     Genre.objects.all().delete()
 
 
-    pages = [2,3,4,5]
+    pages = [2,3,4,5,6,7,8,9,10]
     
     for page in pages:
         session = requests.Session()

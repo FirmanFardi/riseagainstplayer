@@ -47,16 +47,22 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel" style="background-color:#3F729B ;">
             <div class="container">
-                <a data-splitting class=" navbar-brand mr-4" href="{% url 'social-home' %}">Rise Against Player</a>
+                <a data-splitting class=" navbar-brand mr-4" href="{% url 'social-home' %}">Homepage</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarToggle">
                     <div class="navbar-nav mr-auto">
-                        <a class="nav-item nav-link" href="{% url 'social-home' %}">Social</a>
+                        <a class="nav-item nav-link" href="{% url 'social-home' %}">Blog</a>
                         <!--<a class="nav-item nav-link" href="{% url 'social-about' %}">News</a>-->
-                        <a class="nav-item nav-link" href="{% url 'recommendation' %}">Recommender</a>
+                        {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'recommendation' %}">Game Recommendation</a>
+                        {% endif %}
+                        {% if user.is_staff %}
+                        <li><a class="nav-item nav-link hvrcenter" href="{% url 'privilege' %}">Privilege</a>
+                        </li>
+                        {% endif %}
 
                     </div>
                     <!-- Navbar Right Side -->

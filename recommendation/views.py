@@ -11,7 +11,7 @@ from django.views import View
 from steam.models import Steam
 from .forms import ChooseTagsForm
 
-DEVELOPER_MATCH_SCORE = 15
+RATING_MATCH_SCORE = 15
 GENRE_MATCH_SCORE = 50
 TAG_MATCH_SCORE = 7
 
@@ -21,7 +21,8 @@ class RecommendGamesManuallyView(View):
         return render(
             request,
             template_name='recommendation/recommendation_preference.html',
-            context={'form': ChooseTagsForm().as_p()}
+            context={'form': ChooseTagsForm().as_p()},
+            
         )
 
     def post(self, request):
@@ -29,7 +30,7 @@ class RecommendGamesManuallyView(View):
         form = ChooseTagsForm(request.POST)
         if form.is_valid():
             user_genre = form.cleaned_data['genre']
-            user_developer = form.cleaned_data['developer']
+            user_rating = form.cleaned_data['rating']
             user_tags = form.cleaned_data['tags']
 
             all_games_info = []
@@ -43,11 +44,11 @@ class RecommendGamesManuallyView(View):
                 }
                 match_score = 0
 
-                if game_object.developer == user_developer:
-                    game_info['developer_match'] = True
-                    match_score += DEVELOPER_MATCH_SCORE
+                if game_object.rating == user_rating:
+                    game_info['rating_match'] = True
+                    match_score += RATING_MATCH_SCORE
                 else:
-                    game_info['developer_match'] = False
+                    game_info['rating_match'] = False
 
                 if game_object.genre == user_genre:
                     game_info['genre_match'] = True
@@ -72,7 +73,7 @@ class RecommendGamesManuallyView(View):
                 'user_favorites': {
                     'favorite_tags_top_6': user_tags,
                     'favorite_genre': user_genre,
-                    'favorite_developer': user_developer
+                    'favorite_developer': user_rating
                 }
             }
 

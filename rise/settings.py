@@ -25,7 +25,7 @@ SECRET_KEY = '#+d2^25c5cp48ms7gbq#^to=8q@&m3$93*lai-=4@(p+c=ko_k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['68.183.228.55']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'tag.apps.TagConfig',
     'developer.apps.DeveloperConfig',
     'recommendation.apps.RecommendationConfig',
+    'rating.apps.RatingConfig',
     'rest_framework',
     'bootstrap4',
+    'floppyforms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

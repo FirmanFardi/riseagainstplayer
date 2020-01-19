@@ -3,6 +3,7 @@ from django.conf import settings
 from PIL import Image
 from genre.models import Genre
 from developer.models import Developer
+from rating.models import Rating
 from django.contrib.auth.models import User
 from tag.models import Tag
 from constants import SORTED_RATING, SORTED_YEARS
@@ -18,7 +19,7 @@ class Steam(models.Model):
     image=models.ImageField(null=True,blank=True,default='default.jpg')
     tags = models.ManyToManyField(Tag,null=True)
     url=models.TextField()
-    rating=models.IntegerField(null=True, blank=True)
+    rating=models.ForeignKey(Rating, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['gametitle']

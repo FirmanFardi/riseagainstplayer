@@ -2,6 +2,7 @@ from .models import Steam
 from genre.models import Genre
 from developer.models import Developer
 from tag.models import Tag
+from rating.models import Rating
 import shutil
 import ntpath
 import os.path
@@ -14,6 +15,7 @@ from selenium import webdriver
 import json
 from requests_html import HTMLSession
 from selenium.webdriver.common.keys import Keys
+from django.views.generic.detail import DetailView
 import time
 import requests
 
@@ -30,9 +32,12 @@ def steam(request):
     Genre.objects.all().delete()
 
 
-    pages = [2,3,4,5,6,7,8,9,10]
-    
+    pages = [2]
+    pagebreak=0
     for page in pages:
+        if pagebreak == 3:
+            break
+        ++pagebreak
         session = requests.Session()
         session.headers = {
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
@@ -82,7 +87,7 @@ def steam(request):
                 print(finalprice)
 
                 image = soup.find('img', {'class': 'game_header_image_full'})['src']       
-                media_root = '/home/django/rise/media'
+                media_root = '/FYP/django/rise/media'
                 if not image.startswith(("data:image", "javascript")):
                     #local_filename = image.split('/')[-1].split("?")[0]
                     local_filename = title+'.jpg'
@@ -117,7 +122,14 @@ def steam(request):
                 print(local_filename)
 
 
+                new_rating = Rating()
+                new_rating.name =  metascore
+                #new_genre.save()
 
+                if  Rating.objects.filter(name=metascore).count() < 1:
+                    new_rating.save()
+                                                                                                                    
+                new_rating = Rating.objects.get(name=metascore)
 
 
 
@@ -148,7 +160,7 @@ def steam(request):
                 new_steam.developer=new_developer
                 new_steam.price=finalprice
                 new_steam.url=link
-                new_steam.rating=metascore  
+                new_steam.rating=new_rating 
                 new_steam.image=local_filename
                 new_steam.save() 
 
@@ -346,13 +358,27 @@ def uplay(request):
 def Gamelist(request):
 
     context = {
-        'steams': Steam.objects.all()
+        'steams': Steam.objects.all(),
+        'genres': Genre.objects.all()
     }
 
     return render(request, 'steam/gamelist.html', context)
 
+def Privilege(request):
+
+    context = {
+    'steams': Steam.objects.all(),
+    'genres': Genre.objects.all(),
+    'developers': Developer.objects.all(),
+    'tags':  Tag.objects.all()
+    }
+
+    return render(request, 'steam/privilege.html', context)
 
 
+class Steamview(DetailView):
+    
+    model = Steam
 
 
 

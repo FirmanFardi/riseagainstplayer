@@ -25,7 +25,8 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
 from steam.views import steam
-from steam.views import Gamelist
+from steam.views import Gamelist,Steamview,Privilege
+from genre.views import GenreListView,GenreDeleteView,GamesByGenreView
 from recommendation.views import RecommendGamesManuallyView
 
 urlpatterns = [
@@ -33,11 +34,15 @@ urlpatterns = [
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
     path('steam/', steam, name='steam'),
-    path('gamelist/', Gamelist, name='gamelist'),
+    path('', Gamelist, name='gamelist'),
+    path('privelege',Privilege,name='privilege'),
     path('recommendation', RecommendGamesManuallyView.as_view(), name='recommendation'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-    path('', include('social.urls')),
+    path('social/', include('social.urls')),
+    path('genre_list/', GenreListView.as_view(),name='genre-list'),
+    path('genre_delete/<genre_id>', GenreDeleteView.as_view(),name='genre-delete'),
+    path('games_by_genre/<genre_id>', GamesByGenreView.as_view(),name='games-by-genre')
 
 ]
 

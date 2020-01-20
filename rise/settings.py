@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'rating.apps.RatingConfig',
     'rest_framework',
     'bootstrap4',
-    'floppyforms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,0 +1,36 @@
+{% extends 'social/base.html' %}
+{% load bootstrap4 i18n staticfiles %}
+{% block content %}
+   
+
+<h1 class="text-white text-center mb-5 mt-5">Games</h1>
+
+</table>
+
+
+
+{% for steam in object_list %}
+
+    <tbody class=" mb-5">
+    <tr>
+        <td>
+            <div class="btn-group btn-group-justified  mb-5" role="group" aria-label="Basic example"
+                 style="width: 100%;">
+
+                    <a class="btn btn-secondary" 
+                       style="color: mintcream ; width:80%">{{ steam.gametitle }}</a>
+                
+                {% if user.is_staff %}
+                    
+                        <a class="btn btn-danger" href="{% url 'steam-delete' steam.id %}" style="color: mintcream">
+                            Delete
+                        </a>
+                  
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+    </tbody>
+
+{% endfor %}
+{% endblock %}

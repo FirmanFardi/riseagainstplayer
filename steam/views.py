@@ -18,7 +18,13 @@ from selenium.webdriver.common.keys import Keys
 from django.views.generic.detail import DetailView
 import time
 import requests
-
+from django.views.generic import ListView
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.shortcuts import render
+from django.urls import reverse
 requests.packages.urllib3.disable_warnings()
 
 
@@ -32,7 +38,7 @@ def steam(request):
     Genre.objects.all().delete()
 
 
-    pages = [2,3,4]
+    pages = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     pagebreak=0
     for page in pages:
         if pagebreak == 3:
@@ -41,7 +47,8 @@ def steam(request):
         session = requests.Session()
         session.headers = {
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"}
-        url = 'https://store.steampowered.com/search/?page='+format(page)+'&tags=19'
+        url = 'https://store.steampowered.com/search/?os=win&filter=topsellers&page='+format(page)
+                
                 
         content = session.get(url, verify=False).content
     
@@ -87,7 +94,7 @@ def steam(request):
                 print(finalprice)
 
                 image = soup.find('img', {'class': 'game_header_image_full'})['src']       
-                media_root = '/home/django/rise/media'
+                media_root = '/FYP/django/rise/media'
                 if not image.startswith(("data:image", "javascript")):
                     #local_filename = image.split('/')[-1].split("?")[0]
                     local_filename = title+'.jpg'
@@ -175,7 +182,7 @@ def steam(request):
         'steams': Steam.objects.all()
         }
 
-    return render(request, 'steam/gamescrape.html', context)
+    return render(request, 'steam/gamelist.html', context)
 
 
     """
@@ -369,5 +376,19 @@ class Steamview(DetailView):
     
     model = Steam
 
+class SteamListView(ListView):
+    model = Steam
+    template_name = 'steam/steam_list.html'
 
+
+class SteamDeleteView(PermissionRequiredMixin, View):
+    permission_required = 'game.delete_game'
+    raise_exception = True
+
+    def get(self, request, steam_id):
+        steam = Steam.objects.get(id=steam_id)
+        steam.delete()
+       
+        return HttpResponseRedirect(reverse('steam-list'))
+    
 

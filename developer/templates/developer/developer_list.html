@@ -1,0 +1,33 @@
+{% extends 'social/base.html' %}
+{% load bootstrap4 i18n staticfiles %}
+{% block content %}
+   
+
+<h1 class="text-white text-center mb-5 mt-5">Genre</h1>
+
+</table>
+{% for developer in object_list %}
+
+    <tbody class=" mb-5">
+    <tr>
+        <td>
+            <div class="btn-group btn-group-justified  mb-5" role="group" aria-label="Basic example"
+                 style="width: 100%;">
+
+                    <a class="btn btn-secondary" 
+                       style="color: mintcream ; width:80%">{{ developer.name }}</a>
+                
+                {% if user.is_staff %}
+                    
+                        <a class="btn btn-danger" href="{% url 'developer-delete' developer.id %}" style="color: mintcream">
+                            Delete
+                        </a>
+                  
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+    </tbody>
+
+{% endfor %}
+{% endblock %}

@@ -30,16 +30,18 @@
                     </td>
                     {% csrf_token %}
                     <td style="width: 33%; text-align: center">
-                        <div class="radio_buttons_container">
-                            <label class="container">{% trans 'Like' %}
+                        <div class="radio_buttons_container mt-5">
+                            <label class="container">{% trans 'I LIKE' %}
                                 <input type="radio"  name="game_{{ game.id }}"  value='like'>
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="container">{% trans 'Dislike' %}
+                            <label class="container">{% trans 'DISLIKE' %}
                                 <input type="radio" checked="checked" name="game_{{ game.id }}" value='dislike'>
                                 <span class="checkmark"></span>
                             </label>
                         </div>
+
+
                     </td>
                 </tr>
             {% endfor %}

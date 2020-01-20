@@ -32,12 +32,12 @@
             <th scope="col">
                 <div>
                     <h3 class=text-white>{% trans 'Score' %}: {{ single_game_information.match_score }}
-                        {% if single_game_information.match_score >= 60 %}
+                        {% if single_game_information.match_score >= 50 %}
                         <i class="far fa-thumbs-up"></i>
-                        {% elif single_game_information.match_score > 50 %}
-                        <i class="far fa-thumbs-down"></i>
+                        {% elif single_game_information.match_score > 30 %}
+               
                         {% else %}
-                        <i class="far fa-thumbs-down"></i>
+                      
                         {% endif %}
                     </h3>
                 </div>

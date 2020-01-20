@@ -23,6 +23,7 @@ class GenreDeleteView(PermissionRequiredMixin, View):
     def get(self, request, genre_id):
         genre = Genre.objects.get(id=genre_id)
         genre.delete()
+        messages.add_message(request, messages.WARNING, _('Genre: {} has been deleted').format(genre.name))
         return HttpResponseRedirect(reverse('genre-list'))
 
 

@@ -4,6 +4,12 @@
 
 
 <div class="row mt-4">
+    <div class="col-md-2  mt-4">
+        <a class="text-white col-md-12 btn btn-elegan" href="{% url 'gamelist' %}" >All <i class="far fa-eye"></i></a>
+    {% for genre in genres %}
+            <a href="{% url 'games-by-genre' genre.id %}" class="text-white col-md-12 btn btn-elegan">{{ genre.name }} <i class="far fa-eye"></i></a>
+    {% endfor %}
+    </div>
     <div class=" col-md-4 text-white">
         <br>
         <div class="content-section special-color-dark  border-0 text-white">
@@ -21,12 +27,7 @@
     </div>
 
     <br>
-    <div class="col-md-2  mt-4">
-        <a class="text-white col-md-12 btn btn-elegan" href="{% url 'gamelist' %}" >All <i class="far fa-eye"></i></a>
-    {% for genre in genres %}
-            <a href="{% url 'games-by-genre' genre.id %}" class="text-white col-md-12 btn btn-elegan">{{ genre.name }} <i class="far fa-eye"></i></a>
-    {% endfor %}
-    </div>
+
     {% for game in all_games_with_genre %}
 
     

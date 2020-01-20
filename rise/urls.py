@@ -25,8 +25,9 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
 from steam.views import steam
-from steam.views import Gamelist,Steamview,Privilege
+from steam.views import Gamelist,Steamview,Privilege,SteamListView,SteamDeleteView
 from genre.views import GenreListView,GenreDeleteView,GamesByGenreView
+from developer.views import DeveloperListView, DeveloperDeleteView
 from recommendation.views import RecommendGamesManuallyView,RecommendByRatedGamesView
 
 urlpatterns = [
@@ -43,7 +44,11 @@ urlpatterns = [
     path('genre_list/', GenreListView.as_view(),name='genre-list'),
     path('genre_delete/<genre_id>', GenreDeleteView.as_view(),name='genre-delete'),
     path('games_by_genre/<genre_id>', GamesByGenreView.as_view(),name='games-by-genre'),
-    path('recommend_game_by_rating', RecommendByRatedGamesView.as_view(),name='recommend-by-rating')
+    path('recommend_game_by_rating', RecommendByRatedGamesView.as_view(),name='recommend-by-rating'),
+    path('developer_list/', DeveloperListView.as_view(),name='developer-list'),
+    path('developer_delete/<developer_id>', DeveloperDeleteView.as_view(),name='developer-delete'),
+    path('steam_list/', SteamListView.as_view(),name='steam-list'),
+    path('steam_delete/<steam_id>', SteamDeleteView.as_view(),name='steam-delete'),
 
 ]
 

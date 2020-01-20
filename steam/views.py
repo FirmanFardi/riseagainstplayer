@@ -32,7 +32,7 @@ def steam(request):
     Genre.objects.all().delete()
 
 
-    pages = [2]
+    pages = [2,3,4]
     pagebreak=0
     for page in pages:
         if pagebreak == 3:
@@ -122,17 +122,6 @@ def steam(request):
                 print(local_filename)
 
 
-                new_rating = Rating()
-                new_rating.name =  metascore
-                #new_genre.save()
-
-                if  Rating.objects.filter(name=metascore).count() < 1:
-                    new_rating.save()
-                                                                                                                    
-                new_rating = Rating.objects.get(name=metascore)
-
-
-
                 new_genre = Genre()
                 new_genre.name = genre
                 #new_genre.save()
@@ -160,7 +149,7 @@ def steam(request):
                 new_steam.developer=new_developer
                 new_steam.price=finalprice
                 new_steam.url=link
-                new_steam.rating=new_rating 
+                new_steam.rating=metascore
                 new_steam.image=local_filename
                 new_steam.save() 
 

@@ -72,7 +72,7 @@
                         <a class="nav-item nav-link hvrcenter" href="{% url 'social-home' %}">Blog</a>
                         <!--<a class="nav-item nav-link hvrcenter" href="{% url 'social-about' %}">News</a>-->
                         {% if user.is_authenticated %}
-                        <a class="nav-item nav-link hvrcenter" href="{% url 'recommendation' %}">Game Recommendation</a>
+                        <a class="nav-item nav-link hvrcenter" href="{% url 'recommend-by-rating' %}">Game Recommendation</a>
                         {% endif %}
                         {% if user.is_staff %}
                         <li><a class="nav-item nav-link hvrcenter" href="{% url 'privilege' %}">Privilege</a>

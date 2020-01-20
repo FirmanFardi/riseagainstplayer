@@ -74,7 +74,7 @@
                                 <li><a class="nav-item nav-link hvrcenter" href="{% url 'social-home' %}">Blog</a>
                                 </li>
                                 {% if user.is_authenticated %}
-                                <li><a class="nav-item nav-link hvrcenter" href="{% url 'recommendation' %}">Game
+                                <li><a class="nav-item nav-link hvrcenter" href="{% url 'recommend-by-rating' %}">Game
                                         Recommendation</a></li>
                                 {% endif %}
                                 {% if user.is_staff %}

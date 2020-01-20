@@ -27,7 +27,7 @@ from rest_framework import routers, serializers, viewsets
 from steam.views import steam
 from steam.views import Gamelist,Steamview,Privilege
 from genre.views import GenreListView,GenreDeleteView,GamesByGenreView
-from recommendation.views import RecommendGamesManuallyView
+from recommendation.views import RecommendGamesManuallyView,RecommendByRatedGamesView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,7 +42,8 @@ urlpatterns = [
     path('social/', include('social.urls')),
     path('genre_list/', GenreListView.as_view(),name='genre-list'),
     path('genre_delete/<genre_id>', GenreDeleteView.as_view(),name='genre-delete'),
-    path('games_by_genre/<genre_id>', GamesByGenreView.as_view(),name='games-by-genre')
+    path('games_by_genre/<genre_id>', GamesByGenreView.as_view(),name='games-by-genre'),
+    path('recommend_game_by_rating', RecommendByRatedGamesView.as_view(),name='recommend-by-rating')
 
 ]
 

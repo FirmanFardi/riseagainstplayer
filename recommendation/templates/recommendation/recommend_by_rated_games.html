@@ -1,0 +1,54 @@
+{% extends 'social/base.html' %}
+{% load bootstrap4 i18n staticfiles %}
+{% block content %}
+
+
+    <form action="{% url 'recommend-by-rating' %}" method="post">
+        <table class="table table-dark">
+            <thead>
+    <!-- Grid column -->
+   
+
+        <div class="card mdb-color mt-5 mb-5">
+            <div class="card-body">
+                <h1 class="font-weight-bold cyan-lighter-hover mb-3 text-white w-auto p-3 text-center">PICK YOUR GAME CHOICE</h1>
+                <h6 class=" text-white text-center">{% trans 'Your answers will generate gamescore based on similarities.' %}</h6>
+            </div>
+        </div>
+
+ 
+    <!-- Grid column -->
+            </thead>
+            <tbody>
+            {% for game in to_be_rated %}
+                <tr>
+                    <td style="width: 33%; text-align: center">
+                        <img alt="{% trans 'No image' %}" src="{{ game.image.url }}" style='width:250px;height:150px'>
+                    </td>
+                    <td style="text-align: center; width: 33%">
+                        <h1 class="text-white">{{ game.gametitle }}</h1>
+                    </td>
+                    {% csrf_token %}
+                    <td style="width: 33%; text-align: center">
+                        <div class="radio_buttons_container">
+                            <label class="container">{% trans 'Like' %}
+                                <input type="radio"  name="game_{{ game.id }}"  value='like'>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">{% trans 'Dislike' %}
+                                <input type="radio" checked="checked" name="game_{{ game.id }}" value='dislike'>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3">
+                    <input type="submit" value='Send' class="tn btn-dark btn-lg btn-block">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+{% endblock %}

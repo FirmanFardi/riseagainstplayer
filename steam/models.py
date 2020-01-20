@@ -19,7 +19,8 @@ class Steam(models.Model):
     image=models.ImageField(null=True,blank=True,default='default.jpg')
     tags = models.ManyToManyField(Tag,null=True)
     url=models.TextField()
-    rating=models.ForeignKey(Rating, on_delete=models.CASCADE)
+    rating=models.IntegerField(null=True,blank=True)
+    to_be_rated = models.NullBooleanField(null=True, default=False)
 
     class Meta:
         ordering = ['gametitle']

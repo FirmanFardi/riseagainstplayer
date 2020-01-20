@@ -6,7 +6,7 @@ from genre.models import Genre
 from tag.models import Tag
 from rating.models import Rating
 from django import forms
-import floppyforms as forms
+
 
 all_tags = Tag.objects.all()
 all_developers = Developer.objects.all()
